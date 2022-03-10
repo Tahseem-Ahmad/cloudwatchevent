@@ -1,93 +1,28 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
-  <groupId>com.amazonaws.lambda</groupId>
-  <artifactId>cloudwatchevent</artifactId>
-  <version>1.0.0</version>
-  <packaging>jar</packaging>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.0</version>
-        <configuration>
-          <release>11</release>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-shade-plugin</artifactId>
-        <version>3.0.0</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>shade</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>com.amazonaws</groupId>
-        <artifactId>aws-java-sdk-bom</artifactId>
-        <version>1.11.266</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-
+  <groupId>com.learning.exceltojson</groupId>
+  <artifactId>exceltojson</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
+  <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-core</artifactId>
+		    <version>2.17.2</version>
+		</dependency>
 
-    <dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-lambda-java-events</artifactId>
-      <version>3.11.0</version>
-   </dependency>
- 
+</dependencies>
 
-<dependency>
-    <groupId>com.okta.sdk</groupId>
-    <artifactId>okta-sdk-api</artifactId>
-    <version>8.1.0</version>
-</dependency>
-<!-- https://mvnrepository.com/artifact/software.amazon.awssdk/secretsmanager -->
-<dependency>
-    <groupId>software.amazon.awssdk</groupId>
-    <artifactId>secretsmanager</artifactId>
-    <version>2.17.137</version>
-</dependency>
-
-<dependency>
-    <groupId>com.okta.sdk</groupId>
-    <artifactId>okta-sdk-impl</artifactId>
-    <version>8.1.0</version>
-    <scope>runtime</scope>
-</dependency>
-<dependency>
-    <groupId>com.okta.sdk</groupId>
-    <artifactId>okta-sdk-httpclient</artifactId>
-    <version>8.1.0</version>
-    <scope>runtime</scope>
-</dependency>
-<dependency>
-      <groupId>com.amazonaws</groupId>
-      <artifactId>aws-lambda-java-core</artifactId>
-      <version>1.2.1</version>
-    </dependency>
-  </dependencies>
 </project>
