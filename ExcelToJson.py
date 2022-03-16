@@ -1,11 +1,8 @@
 import pandas as pd
-import json as json
 import simplejson as sj
 from datetime import datetime
 
 excel_data_df = pd.read_excel('E:/TABLE_COLUMNS.xlsx', sheet_name='Sheet1', dtype=str)
-# print(type(excel_data_df))
-
 json_list = []
 
 
@@ -30,13 +27,11 @@ for ind in excel_data_df.index:
                    'AuditRecUpdby': excel_data_df['RecordUpdatedBy'][ind],
                    'LHEntityCode': excel_data_df['LHEntityCode'][ind],
                    'AuditRecUpDate': dateToStr(excel_data_df['RecordUpdateDate'][ind])}
-    # print(ind)
     auth = excel_data_df['CoarsegrainedGroup'][ind]
     auth = {auth: {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]],
-                   "ndw_plan_code": [excel_data_df['NDWPlanCode'][ind]]}}
+                   "ndw_plan_code": [int(excel_data_df['NDWPlanCode'][ind])]}}
     json_struct['RoleInfo']['authorization'] = auth
     json_list.append(json_struct)
 
 json_array = sj.dumps(json_list, ignore_nan=True)
-
 print(json_array)
