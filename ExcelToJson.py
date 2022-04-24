@@ -92,6 +92,33 @@ for ind in excel_data_df.index:
                 last_claim['boid'] = excel_data_df['BOID'][ind]
                 existing_json['RoleInfo']['authorization']['bcbsa_bcp_rtm_cg']['claim'][
                     len(claim_list) - 1] = last_claim
+        elif auth == 'bcbsa_bcp_role_admin_cg':
+            if auth in existing_json['RoleInfo']['authorization']:
+                fg_group = existing_json['RoleInfo']['authorization']['bcbsa_bcp_role_admin_cg']['fg_groups']
+                fg_group.append(excel_data_df['FineGrainedGroup'][ind])
+                existing_json['RoleInfo']['authorization']['bcbsa_bcp_role_admin_cg']['fg_groups'] = fg_group
+                ndw_plan_code = existing_json['RoleInfo']['authorization']['bcbsa_bcp_role_admin_cg']['ndw_plan_code']
+                ndw_plan_code.append(excel_data_df['NDWPlanCode'][ind])
+                existing_json['RoleInfo']['authorization']['bcbsa_bcp_role_admin_cg']['ndw_plan_code'] = ndw_plan_code
+            else:
+                temp_auth = existing_json['RoleInfo']['authorization']
+                temp_auth[auth] = {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]],
+                                   "ndw_plan_code": [excel_data_df['NDWPlanCode'][ind]]}
+                existing_json['RoleInfo']['authorization'] = temp_auth
+        elif auth == 'bcbsa_bcp_portal_cg':
+            if auth in existing_json['RoleInfo']['authorization']:
+                fg_group = existing_json['RoleInfo']['authorization']['bcbsa_bcp_portal_cg']['fg_groups']
+                fg_group.append(excel_data_df['FineGrainedGroup'][ind])
+                existing_json['RoleInfo']['authorization']['bcbsa_bcp_portal_cg']['fg_groups'] = fg_group
+                ndw_plan_code = existing_json['RoleInfo']['authorization']['bcbsa_bcp_portal_cg']['ndw_plan_code']
+                ndw_plan_code.append(excel_data_df['NDWPlanCode'][ind])
+                existing_json['RoleInfo']['authorization']['bcbsa_bcp_portal_cg']['ndw_plan_code'] = ndw_plan_code
+            else:
+                temp_auth = existing_json['RoleInfo']['authorization']
+                temp_auth[auth] = {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]],
+                                   "ndw_plan_code": [excel_data_df['NDWPlanCode'][ind]]}
+                existing_json['RoleInfo']['authorization'] = temp_auth
+
         #print(existing_json)
     else:
         json_struct = {'RoleName': excel_data_df['RoleName'][ind],
@@ -109,10 +136,7 @@ for ind in excel_data_df.index:
                        'AuditRecUpDate': dateToStr(excel_data_df['RecordUpdateDate'][ind])}
         auth = excel_data_df['CoarsegrainedGroup'][ind]
         auth = auth.strip()
-        if auth == 'bcbsa_bcp_edar_cg':
-            auth = {auth: {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]],
-                           "ndw_plan_code": [excel_data_df['NDWPlanCode'][ind]]}}
-        elif auth == 'bcbsa_bcp_rtm_cg':
+        if auth == 'bcbsa_bcp_rtm_cg':
             auth = {auth: {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]]}}
             if pd.notnull(excel_data_df['ControlPlanCode'][ind]) | pd.notnull(excel_data_df['ControlStationCode'][ind]):
                 plan_code = {'plan_code': excel_data_df['ControlPlanCode'][ind],
@@ -141,6 +165,15 @@ for ind in excel_data_df.index:
                 temp_auth['privacy'] = {}
                 temp_auth['boid'] = excel_data_df['BOID'][ind]
                 auth['bcbsa_bcp_rtm_cg']['claim'][0] = temp_auth
+        elif auth == 'bcbsa_bcp_edar_cg':
+            auth = {auth: {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]],
+                           "ndw_plan_code": [excel_data_df['NDWPlanCode'][ind]]}}
+        elif auth == 'bcbsa_bcp_role_admin_cg':
+            auth = {auth: {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]],
+                           "ndw_plan_code": [excel_data_df['NDWPlanCode'][ind]]}}
+        elif auth == 'bcbsa_bcp_portal_cg':
+            auth = {auth: {"fg_groups": [excel_data_df['FineGrainedGroup'][ind]],
+                           "ndw_plan_code": [excel_data_df['NDWPlanCode'][ind]]}}
 
         json_struct['RoleInfo']['authorization'] = auth
         #print(json_struct)
